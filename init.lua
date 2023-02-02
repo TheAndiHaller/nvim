@@ -342,7 +342,7 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
+  clangd = {},
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
@@ -381,6 +381,16 @@ mason_lspconfig.setup_handlers {
       settings = servers[server_name],
     }
   end,
+}
+local lsp_flags = {
+  -- This is the default in Nvim 0.7+
+  debounce_text_changes = 150,
+}
+
+require('lspconfig')['clangd'].setup{
+    cmd = { "/home/andi/Downloads/esp-clang/bin/clangd"},
+    on_attach = on_attach,
+    flags = lsp_flags,
 }
 
 -- Turn on lsp status information
